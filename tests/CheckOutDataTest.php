@@ -2,8 +2,8 @@
 
 namespace SGP\IronBox\Tests;
 
-use PHPUnit\Framework\TestCase;
 use SGP\IronBox\CheckOutData;
+use PHPUnit\Framework\TestCase;
 use SGP\IronBox\Exceptions\IronBoxException;
 
 class CheckOutDataTest extends TestCase
@@ -15,7 +15,7 @@ class CheckOutDataTest extends TestCase
     public function is_should_validate_required_fields()
     {
         $this->expectException(IronBoxException::class);
-        $this->expectExceptionMessage("Field `sharedAccessSignature` is required");
+        $this->expectExceptionMessage('Field `sharedAccessSignature` is required');
 
         (new CheckOutData)->validate();
 

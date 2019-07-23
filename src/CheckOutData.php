@@ -52,7 +52,7 @@ class CheckOutData implements Validatable
     }
 
     /**
-     * Validates that all required fields are present
+     * Validates that all required fields are present.
      *
      * @return bool
      * @throws \SGP\IronBox\Exceptions\IronBoxException

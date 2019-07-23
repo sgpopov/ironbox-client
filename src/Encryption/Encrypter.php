@@ -2,9 +2,9 @@
 
 namespace SGP\IronBox\Encryption;
 
+use RuntimeException;
 use SGP\IronBox\Exceptions\DecryptException;
 use SGP\IronBox\Exceptions\EncryptException;
-use RuntimeException;
 
 class Encrypter
 {
@@ -205,7 +205,7 @@ class Encrypter
      */
     protected function hash($iv, $value)
     {
-        return hash_hmac('sha256', $iv . $value, $this->key);
+        return hash_hmac('sha256', $iv.$value, $this->key);
     }
 
     /**

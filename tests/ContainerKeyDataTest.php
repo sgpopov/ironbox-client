@@ -2,8 +2,8 @@
 
 namespace SGP\IronBox\Tests;
 
-use SGP\IronBox\ContainerKeyData;
 use PHPUnit\Framework\TestCase;
+use SGP\IronBox\ContainerKeyData;
 use SGP\IronBox\Exceptions\IronBoxException;
 
 class ContainerKeyDataTest extends TestCase
@@ -26,7 +26,7 @@ class ContainerKeyDataTest extends TestCase
 
         $this->assertTrue($containerKeyData->validate());
     }
-    
+
     /**
      * @test
      * @covers \SGP\IronBox\ContainerKeyData::keyStrength

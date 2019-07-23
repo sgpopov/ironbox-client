@@ -3,9 +3,9 @@
 namespace SGP\IronBox;
 
 use GuzzleHttp\Client;
-use SGP\IronBox\Encryption\FileEncrypter;
 use SGP\IronBox\Enums\EntityTypes;
 use SGP\IronBox\Exceptions\FileNotFound;
+use SGP\IronBox\Encryption\FileEncrypter;
 use SGP\IronBox\Exceptions\IronBoxException;
 use SGP\IronBox\Exceptions\ServiceUnavailable;
 
@@ -97,7 +97,7 @@ class IronBox
     }
 
     /**
-     * Checks if the IronBox API server is responding
+     * Checks if the IronBox API server is responding.
      *
      * @return bool
      *
@@ -106,7 +106,7 @@ class IronBox
      */
     public function ping()
     {
-        $endpoint = $this->endpoint . 'Ping';
+        $endpoint = $this->endpoint.'Ping';
 
         $request = $this->client->request('GET', $endpoint);
 
@@ -118,7 +118,7 @@ class IronBox
     }
 
     /**
-     * Uploads a given file to an IronBox container
+     * Uploads a given file to an IronBox container.
      *
      * @param string $filePath Local file path of file to upload
      * @param string $blobName Name of the file to use on cloud storage
@@ -132,7 +132,7 @@ class IronBox
     {
         $this->isFile($filePath);
 
-        $encryptedFilePath = $filePath . '.iron';
+        $encryptedFilePath = $filePath.'.iron';
 
         $this->ping();
 
@@ -152,7 +152,7 @@ class IronBox
     }
 
     /**
-     * Fetches an IronBox container key data
+     * Fetches an IronBox container key data.
      *
      * @return \SGP\IronBox\ContainerKeyData
      *
@@ -162,7 +162,7 @@ class IronBox
      */
     public function containerKeyData()
     {
-        $endpoint = $this->endpoint . 'ContainerKeyData';
+        $endpoint = $this->endpoint.'ContainerKeyData';
 
         $request = $this->client->request('POST', $endpoint, [
             'headers' => $this->httpHeaders,
@@ -194,7 +194,7 @@ class IronBox
     }
 
     /**
-     * Creates an IronBox blob in an existing container
+     * Creates an IronBox blob in an existing container.
      *
      * @param string $blobName
      *
@@ -206,7 +206,7 @@ class IronBox
      */
     public function createEntityContainerBlob(string $blobName)
     {
-        $endpoint = $this->endpoint . 'CreateEntityContainerBlob';
+        $endpoint = $this->endpoint.'CreateEntityContainerBlob';
 
         $request = $this->client->request('POST', $endpoint, [
             'headers' => $this->httpHeaders,
@@ -245,7 +245,7 @@ class IronBox
      */
     public function checkOutEntityContainerBlob(string $blobIdName)
     {
-        $endpoint = $this->endpoint . 'CheckOutEntityContainerBlob';
+        $endpoint = $this->endpoint.'CheckOutEntityContainerBlob';
 
         $request = $this->client->request('POST', $endpoint, [
             'headers' => $this->httpHeaders,
@@ -296,7 +296,7 @@ class IronBox
         $blockSizeBytes = 4 * 1024 * 1024;
 
         // Open handle to encrypted file and send it in blocks
-        $sasUriBlockPrefix = $checkOutData->sharedAccessSignatureUri . '&comp=block&blockid=';
+        $sasUriBlockPrefix = $checkOutData->sharedAccessSignatureUri.'&comp=block&blockid=';
         $blockIds = [];
 
         $i = 0;
@@ -306,10 +306,10 @@ class IronBox
             $buf = fread($fh, $blockSizeBytes);
 
             // block IDs all have to be the same length, which was NOT documented by MSFT
-            $blockId = 'block' . str_pad($i, 8, 0, STR_PAD_LEFT);
+            $blockId = 'block'.str_pad($i, 8, 0, STR_PAD_LEFT);
 
             // Create a blob block
-            $request = $this->client->request('PUT', $sasUriBlockPrefix . base64_encode($blockId), [
+            $request = $this->client->request('PUT', $sasUriBlockPrefix.base64_encode($blockId), [
                 'headers' => [
                     'content-type' => 'application/octet-stream',
                     'x-ms-blob-type' => 'BlockBlob',
@@ -341,7 +341,7 @@ class IronBox
             $blockListBody .= sprintf('<Latest>%s</Latest>', $encodedBlockId);
         }
 
-        $request = $this->client->request('PUT', $checkOutData->sharedAccessSignatureUri . '&comp=blockList', [
+        $request = $this->client->request('PUT', $checkOutData->sharedAccessSignatureUri.'&comp=blockList', [
             'headers' => [
                 'content-type' => 'text/xml',
                 'x-ms-version' => '2012-02-12',
@@ -376,7 +376,7 @@ class IronBox
         $this->isFile($filePath);
         $checkoutData->validate();
 
-        $endpoint = $this->endpoint . 'CheckInEntityContainerBlob';
+        $endpoint = $this->endpoint.'CheckInEntityContainerBlob';
 
         $request = $this->client->request('POST', $endpoint, [
             'headers' => $this->httpHeaders,

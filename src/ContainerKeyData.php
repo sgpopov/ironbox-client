@@ -55,7 +55,7 @@ class ContainerKeyData implements Validatable
      *
      * @return $this
      */
-    public function symmetricKey(string $symmetricKey): ContainerKeyData
+    public function symmetricKey(string $symmetricKey): self
     {
         $this->symmetricKey = $symmetricKey;
 
@@ -67,7 +67,7 @@ class ContainerKeyData implements Validatable
      *
      * @return $this
      */
-    public function initializationVector(string $initializationVector): ContainerKeyData
+    public function initializationVector(string $initializationVector): self
     {
         $this->initializationVector = $initializationVector;
 
@@ -80,7 +80,7 @@ class ContainerKeyData implements Validatable
      * @return $this
      * @throws \SGP\IronBox\Exceptions\IronBoxException
      */
-    public function keyStrength(int $keyStrength): ContainerKeyData
+    public function keyStrength(int $keyStrength): self
     {
         if ($keyStrength !== 1 && $keyStrength !== 2) {
             throw new IronBoxException('Invalid key strength - must be either 1 or 2');
@@ -94,7 +94,7 @@ class ContainerKeyData implements Validatable
     }
 
     /**
-     * Validates that all required fields are present
+     * Validates that all required fields are present.
      *
      * @return bool
      * @throws \SGP\IronBox\Exceptions\IronBoxException
